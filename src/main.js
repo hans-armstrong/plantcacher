@@ -15,4 +15,9 @@ let readTodoList = () => {
      });
  }
 
-readTodoList()
+let plantdata = readTodoList()
+let title = document.createElement('span')
+title.innerHTML = plantdata
+
+let body = document.querySelector('body')
+body.appendChild(title)
