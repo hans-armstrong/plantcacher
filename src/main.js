@@ -1,4 +1,4 @@
-let readTodoList = () => {
+async function readTodoList() {
     return fetch('https://plant-web-service.onrender.com/api/plants')
      .then(response => {
          if (!response.ok) {
@@ -15,7 +15,7 @@ let readTodoList = () => {
      });
  }
 
-let plantdata = readTodoList()
+let plantdata =  readTodoList()
 let title = document.createElement('span')
 title.innerHTML = plantdata
 
