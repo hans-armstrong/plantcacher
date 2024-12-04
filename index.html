@@ -6,8 +6,33 @@
     <link rel="stylesheet" href="./src/output.css"> 
     <title>PlantCacher</title>
 </head>
+<header>
+    <h1>PlantCacher</h1>
+    <nav>
+        <ul>
+            <li><a href="/index.html">Explore</a></li>
+            <li><a href="/pages/plantlist.html">PlantList</a></li>
+            <li><a href="/pages/plantlog.html">PlantLog</a></li>
+        </ul>
+    </nav>
+    <h2>Total points: <span id="pointsDOM"></span></h2>
+</header>
 <body>
-    <h1 class="text-xs">Hiii</h1>
+    <main>
+        <div id="searchDOM">
+            <input type="text" id="searchInputDOM" placeholder="Search for plants">
+            <button id="searchButton">Search</button>
+
+        </div>
+        <div class="plantsDOM"></div>
+    </main>
+    <script type="module" src="/src/state.mjs"></script>
+    <script type="module" src="/src/utils/functions.mjs"></script>
     <script type="module" src="/src/main.mjs"></script>
 </body>
+<footer>
+    <p>PlantCacher</p>
+    <p>2024</p>
+    <p>Created by Hans Armstrong for educational purposes.</p>
+</footer>
 </html>
