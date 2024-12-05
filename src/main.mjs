@@ -1,37 +1,68 @@
-async function readTodoList() {
-    return fetch('https://plant-web-service.onrender.com/api/plants')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+import initialize from "./state.mjs";
+
+document.addEventListener("DOMContentLoaded", async () => {
+    let { user, plants, plantList } = await initialize();
+    // console.log(plants);
+    // console.log("plantList", plantList);
+
+    const gallery = document.getElementById("plantsDOM");
+    const itemsPerPage = 20;
+    let currentPage = 1;
+
+    const renderPage = (page) => {
+        gallery.innerHTML = ""; 
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const plantsToShow = plants.slice(start, end);
+        let firstPlant = plantsToShow[0]
+        console.log(firstPlant)
+
+        plantsToShow.forEach(plant => {
+            // console.log("plant", plant);
+            const plantDiv = document.createElement("div");
+            plantDiv.classList.add("plant");
+
+            const plantName = document.createElement("h3");
+            plantName.textContent = plant.common_name;
+            plantDiv.appendChild(plantName);
+
+            const plantImage = document.createElement("img");
+            plantImage.src = plant.thumbnail_image_url;
+            plantImage.classList = "max-w-64"
+            if (plant.plant_id === firstPlant.plant_id) {
+                plantImage.classList = "max-w-[100%]"
+            }
+            plantDiv.appendChild(plantImage);
+
+            const moreInfoButton = document.createElement("button");
+            moreInfoButton.textContent = "More Information";
+            moreInfoButton.onclick = () => {
+                window.location.href = `plantdetails.html?plantId=${plant.plant_id}`;
+            };
+            plantDiv.appendChild(moreInfoButton);
+
+            gallery.appendChild(plantDiv);
+        });
+    };
+
+    const createPaginationButtons = () => {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = ""; // Clear existing buttons
+
+        const totalPages = Math.ceil(plants.length / itemsPerPage);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement("button");
+            button.textContent = i;
+            button.onclick = () => {
+                currentPage = i;
+                renderPage(currentPage);
+            };
+            pagination.appendChild(button);
         }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        return data;
-      })
-      .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-      });
-  }
-  
-  async function displayFirstPlantCommonName() {
-    let plantdata = await readTodoList();
-  
-    // Check if plantdata is an array and has at least one element
-    if (Array.isArray(plantdata) && plantdata.length > 0) {
-      let firstPlant = plantdata[0];
-      let commonName = firstPlant.common_name;
-  
-      let title = document.createElement('span');
-      title.innerHTML = commonName;
-  
-      let body = document.querySelector('body');
-      body.appendChild(title);
-    } else {
-      console.error('No plant data available or plantdata is not an array');
-    }
-  }
-  
-  // Call the function to display the first plant's common name
-  displayFirstPlantCommonName();
+    };
+
+    renderPage(currentPage);
+    createPaginationButtons();
+});
+
