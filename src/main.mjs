@@ -1,7 +1,8 @@
-import { user, plants, plantList } from "./state.mjs";
+import initialize from "./state.mjs";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+    let { user, plants, plantList } = await initialize()
     console.log(plants)
     console.log("plantList", plantList)
     const gallery = document.getElementById("plantsDOM");

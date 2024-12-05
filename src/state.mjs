@@ -105,16 +105,17 @@ async function readPlantList() {
   }
 }
 
-async function initialize() {
+export default async function initialize() {
   user = await checkUserInLocalStorage();
   let plantsUnfiltered = await readPlants();
   plantList = await readPlantList();
   plants = plantsUnfiltered.filter(plant => 
     !plantList.some(listedPlant => listedPlant.plant_id === plant.plant_id)
   );
+  console.log(user, plants, plantList)
   return { user, plants, plantList }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await initialize();
-});
+// document.addEventListener("DOMContentLoaded", async () => {
+//   await initialize();
+// });
