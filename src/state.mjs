@@ -18,7 +18,7 @@ async function checkUserInLocalStorage() {
     await sendUserToApi(userObject);
     return userObject;
   } else {
-    user = await readUser()
+    // user = await readUser()
     console.log(user, "final")
     return user;
   }

@@ -2,7 +2,7 @@ import initialize from "./state.mjs";
 
 document.addEventListener("DOMContentLoaded", async () => {
     let { user, plants, plantList } = await initialize();
-    // console.log(plants);
+    console.log(user, 'user');
     // console.log("plantList", plantList);
 
     const gallery = document.getElementById("plantsDOM");
@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     let currentPage = 1;
 
     const renderPage = (page) => {
+        const cachedPage = localStorage.getItem(`plantsPage_${page}`);
+        if (cachedPage) {
+            gallery.innerHTML = cachedPage;
+            return;
+        }
+
         gallery.innerHTML = ""; 
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
@@ -41,8 +47,31 @@ document.addEventListener("DOMContentLoaded", async () => {
             };
             plantDiv.appendChild(moreInfoButton);
 
+            const addButton = document.createElement("button");
+            addButton.textContent = "+";
+            addButton.onclick = async () => {
+                try {
+                    const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ plant_id: plant.plant_id, user_id: user.user_id })
+                    });
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    // alert("Plant added successfully!");
+                } catch (error) {
+                    console.error("There was a problem with the fetch operation:", error);
+                }
+            };
+            plantDiv.appendChild(addButton);
+
             gallery.appendChild(plantDiv);
         });
+
+        localStorage.setItem(`plantsPage_${page}`, gallery.innerHTML);
     };
 
     const createPaginationButtons = () => {
