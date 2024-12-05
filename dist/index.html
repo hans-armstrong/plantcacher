@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
  
     <title>PlantCacher</title>
-  <script type="module" crossorigin src="/plantcacher/assets/index-BfK5lp2k.js"></script>
-  <link rel="stylesheet" crossorigin href="/plantcacher/assets/index-D8kRcF1m.css">
+  <script type="module" crossorigin src="/plantcacher/assets/main-DdbAdqZu.js"></script>
+  <link rel="modulepreload" crossorigin href="/plantcacher/assets/functions-DLVKsrsu.js">
+  <link rel="modulepreload" crossorigin href="/plantcacher/assets/state-MpY2Njxq.js">
+  <link rel="stylesheet" crossorigin href="/plantcacher/assets/functions-D8kRcF1m.css">
 </head>
-<header>
-    <h1>PlantCacher</h1>
-          <ul class="menu bg-base-200 w-80 p-4">
-            <!-- Sidebar content here -->
-            <li><a href="/index.html">Explore</a></li>
-            <li><a href="/pages/plantlist.html">PlantList</a></li>
-            <li><a href="/pages/plantlog.html">PlantLog</a></li>
-          </ul>
-    <h2>Total points: <span id="pointsDOM"></span></h2>
-</header>
-<body>
-    <main>
+<div class="flex wrap">
+    <header>
+        <h1>PlantCacher</h1>
+              <ul class="menu bg-base-200 w-80 p-4">
+                <!-- Sidebar content here -->
+                <li><a href="/index.html">Explore</a></li>
+                <li><a href="/plantcacher/plantlist.html">PlantList</a></li>
+                <li><a href="/plantcacher/plantlog.html">PlantLog</a></li>
+              </ul>
+        <h2>Total points: <span id="pointsDOM"></span></h2>
         <div id="searchDOM">
             <input type="text" id="searchInputDOM" placeholder="Search for plants">
             <button id="searchButton">Search</button>
-
         </div>
-        <div id="plantsDOM"></div>
-    </main>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-
-</body>
+    </header>
+    <body>
+        <main>
+            <div class="">
+                <div>
+                    <div id="plantsDOM"></div>
+                    <div id="pagination"></div>
+                </div>
+            </div>
+        </main>
+        <script src="https://cdn.tailwindcss.com"></script>
+    
+    </body>
+</div>
 <footer>
     <p>PlantCacher</p>
     <p>2024</p>
