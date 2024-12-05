@@ -36,7 +36,7 @@ async function getUserIpAddress() {
 
 async function sendUserToApi(user) {
   try {
-    const response = await fetch("http://localhost:10000/api/users", {
+    const response = await fetch("https://plant-web-service.onrender.com/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ async function sendUserToApi(user) {
 
 async function readUser() {
   try {
-    const response = await fetch(`http://localhost:10000/api/user?user_id=${user.user_id}`, {
+    const response = await fetch(`https://plant-web-service.onrender.com/api/user?user_id=${user.user_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ async function readPlants() {
 
 async function readPlantList() {
   try {
-    const response = await fetch(`http://localhost:10000/api/plant_list?user_id=${user.user_id}`, {
+    const response = await fetch(`https://plant-web-service.onrender.com/api/plant_list?user_id=${user.user_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
