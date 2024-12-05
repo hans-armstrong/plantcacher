@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
+ 
     <title>PlantCacher</title>
-  <script type="module" crossorigin src="/plantcacher/assets/index-dmH3-LA1.js"></script>
+  <script type="module" crossorigin src="/plantcacher/assets/index-BfK5lp2k.js"></script>
   <link rel="stylesheet" crossorigin href="/plantcacher/assets/index-D8kRcF1m.css">
 </head>
 <header>
     <h1>PlantCacher</h1>
-    <nav>
-        <ul>
+          <ul class="menu bg-base-200 w-80 p-4">
+            <!-- Sidebar content here -->
             <li><a href="/index.html">Explore</a></li>
             <li><a href="/pages/plantlist.html">PlantList</a></li>
             <li><a href="/pages/plantlog.html">PlantLog</a></li>
-        </ul>
-    </nav>
+          </ul>
     <h2>Total points: <span id="pointsDOM"></span></h2>
 </header>
 <body>
@@ -25,12 +26,14 @@
             <button id="searchButton">Search</button>
 
         </div>
-        <div class="plantsDOM"></div>
+        <div id="plantsDOM"></div>
     </main>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
 </body>
 <footer>
     <p>PlantCacher</p>
     <p>2024</p>
-    <p>Created by Hans Armstrong for educational purposes.</p>
+            <button id="searchButton">Search</button>
 </footer>
 </html>
