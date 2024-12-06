@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/output.css">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="./src/output.css">
+     <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
  
     <title>PlantCacher</title>
 </head>
+<body>
 <div class="flex wrap">
     <header>
         <h1>PlantCacher</h1>
@@ -23,7 +24,6 @@
             <button id="searchButton">Search</button>
         </div>
     </header>
-    <body>
         <main>
             <div class="">
                 <div>
@@ -32,13 +32,12 @@
                 </div>
             </div>
         </main>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script type="module" src="/src/state.mjs"></script>
-        <script type="module" src="/src/utils/functions.mjs"></script>
-        <script type="module" src="/src/main.mjs"></script>
-    
-    </body>
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+        <script type="module" src="./src/state.mjs" defer></script>
+        <script type="module" src="./src/utils/functions.mjs" defer></script>
+        <script type="module" src="./src/main.mjs" defer></script>
 </div>
+</body>
 <footer>
     <p>PlantCacher</p>
     <p>2024</p>

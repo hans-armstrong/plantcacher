@@ -1,4 +1,5 @@
 import initialize from "./state.mjs";
+import './style.css'
 
 document.addEventListener("DOMContentLoaded", async () => {
     let { user, plants, plantList } = await initialize();
@@ -41,8 +42,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             plantDiv.appendChild(plantImage);
 
             const moreInfoButton = document.createElement("button");
-            moreInfoButton.textContent = "More Information";
-            moreInfoButton.setAttribute("onclick", moreInfoButton)
+            moreInfoButton.textContent = "More sInformation";
+            moreInfoButton.addEventListener('click', () => {
+                console.log('clicked')
+            })
             // moreInfoButton.onclick = () => {
             //     console.log("Navigating to plant details page");
             //     window.location.href = `plantdetails.html?plantId=${plant.plant_id}`;
