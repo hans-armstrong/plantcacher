@@ -11,13 +11,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     let currentPage = 1;
 
     const renderPage = (page) => {
-        const cachedPage = localStorage.getItem(`plantsPage_${page}`);
-        if (cachedPage) {
-            gallery.innerHTML = cachedPage;
-            return;
-        }
+        // const cachedPage = localStorage.getItem(`plantsPage_${page}`);
+        // if (cachedPage) {
+        //     gallery.innerHTML = cachedPage;
+        //     return;
+        // }
 
-        gallery.innerHTML = ""; 
+        gallery.innerHTML = "";
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const plantsToShow = plants.slice(start, end);
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             plantDiv.appendChild(plantImage);
 
             const moreInfoButton = document.createElement("button");
-            moreInfoButton.textContent = "More sInformation";
+            moreInfoButton.textContent = "More Indsformation";
             moreInfoButton.addEventListener('click', () => {
                 console.log('clicked')
             })
@@ -54,9 +54,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const addButton = document.createElement("button");
             addButton.textContent = "+";
-
+            addButton.onclick = async () => {
+                try {
+                    const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ plant_id: plant.plant_id, user_id: user.user_id })
+                    });
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    // alert("Plant added successfully!");
+                } catch (error) {
+                    console.error("There was a problem with the fetch operation:", error);
+                }
+            };
             plantDiv.appendChild(addButton);
-
             gallery.appendChild(plantDiv);
         });
 
@@ -80,10 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
-function moreInfoButton() {
-    console.log("Navigating to plant details page");
-
-}
+    
     // moreInfoButton.onclick = () => {
     //     console.log("Navigating to plant details page");
     //     window.location.href = `plantdetails.html?plantId=${plant.plant_id}`;
