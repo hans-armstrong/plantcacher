@@ -10,41 +10,48 @@ document.addEventListener("DOMContentLoaded", async () => {
         plantDiv.setAttribute('data-plant-id', plant.plant_id)
         plantDiv.innerHTML = `
             <p>${plant.common_name}</p>
-            <button id="fetch-images-${plant.plant_id}">Fetch Images</button>
-            <div id="images-${plant.plant_id}"></div>
+            <div id="images-${plant.plant_id}"><img src=${plant.thumbnail_image_url}></div>
         `;
 
         plantListDivDOM.appendChild(plantDiv);
     });
     plantList.forEach(plant => {
-        let moreImagesButton = document.getElementById(`fetch-images-${plant.plant_id}`)
         let imagesDiv = document.getElementById(`images-${plant.plant_id}`);
-        moreImagesButton.onclick = async () => {
+        let plantImages 
+        imagesDiv.addEventListener('click', async () => {
             try {
                 const response = await fetch(`https://plant-web-service.onrender.com/api/plant_images?plant_id=${plant.plant_id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
                     }
-                });
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json()
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(plantImages => {
+                    console.log('Plant images:', plantImages);
+                    return plantImages;
+                })
+                .then(plantImages => {
+                    if (plantImages) {
+                        plantImages.forEach(image => {
+                            const imageDiv = document.createElement('div');
+                            imageDiv.innerHTML = `
+                                <img src="${image.image_url}" alt="${image.type}">
+                                <p>Type: ${image.type}</p>
+                                <p>Copyright: ${image.copyright}</p>
+                            `;
+                            imagesDiv.appendChild(imageDiv);
+                        });
+                    }
+                })
             } catch (error) {
                 console.error("There was a problem with the fetch operation:", error);
             }
-        };
-        imagesDiv.innerHTML = '';
-
-        plantImages.forEach(image => {
-            const imageDiv = document.createElement('div');
-            imageDiv.innerHTML = `
-                <img src="${image.image_url}" alt="${image.type}">
-                <p>Type: ${image.type}</p>
-                <p>Copyright: ${image.copyright}</p>
-            `;
-            imagesDiv.appendChild(imageDiv);
-        });
+        })
     });
 })
