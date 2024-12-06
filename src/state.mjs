@@ -18,7 +18,7 @@ async function checkUserInLocalStorage() {
     await sendUserToApi(userObject);
     return userObject;
   } else {
-    user = await readUser()
+    // user = await readUser()
     console.log(user, "final")
     return user;
   }
@@ -109,8 +109,12 @@ export default async function initialize() {
   user = await checkUserInLocalStorage();
   let plantsUnfiltered = await readPlants();
   plantList = await readPlantList();
+  if (!Array.isArray(plantList)) {
+    plantList = [];
+  }
+  const plantListIds = plantList.map(listedPlant => listedPlant.plant_id);
   plants = plantsUnfiltered.filter(plant => 
-    !plantList.some(listedPlant => listedPlant.plant_id === plant.plant_id)
+    !plantListIds.includes(plant.plant_id)
   );
   console.log(user, plants, plantList)
   return { user, plants, plantList }

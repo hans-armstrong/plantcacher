@@ -4,29 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/output.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+
     <title>PlantCacher: PlantList</title>
 </head>
-<header>
-    <h1>PlantCacher</h1>
-    <nav>
-        <ul>
-            <li><a href="/index.html">Explore</a></li>
-            <li><a href="/pages/plantlist.html">PlantList</a></li>
-            <li><a href="/pages/plantlog.html">PlantLog</a></li>
-        </ul>
-    </nav>
-    <h2>Total points: <span id="pointsDOM"></span></h2>
-</header>
-<body>
-<h3>PlantList</h3>
-<div id="plantListDivDOM">
+<div class="flex wrap">
+    <header>
+        <h1>PlantCacher</h1>
+              <ul class="menu bg-base-200 w-80 p-4">
+                <!-- Sidebar content here -->
+                <li><a href="/index.html">Explore</a></li>
+                <li><a href="/plantcacher/plantlist.html">PlantList</a></li>
+                <li><a href="/plantcacher/plantlog.html">PlantLog</a></li>
+              </ul>
+        <h2>Total points: <span id="pointsDOM"></span></h2>
+        <div id="searchDOM">
+            <input type="text" id="searchInputDOM" placeholder="Search for plants">
+            <button id="searchButton">Search</button>
+        </div>
+    </header>
+    <body>
+    <h3>PlantList</h3>
+    <div id="plantListDivDOM">
     
-</div>    
-
-
-    <script type="module" src="/src/state.mjs"></script>
-    <script type="module" src="/src/utils/functions.mjs"></script>
-</body>
+    </div>
+    
+    <script type="module" src="/src/pages/plantlist.mjs"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- <script type="module" src="/src/state.mjs"></script> -->
+        <script type="module" src="/src/utils/functions.mjs"></script>
+    </body>
+</div>
 <footer>
     <p>PlantCacher</p>
     <p>2024</p>
