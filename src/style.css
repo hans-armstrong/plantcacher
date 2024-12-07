@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: "utile", sans-serif;
+font-weight: 200;
+font-style: normal;
+}
