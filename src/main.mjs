@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const figure = document.createElement('figure');
         const img = document.createElement('img');
         img.className = 'list-img';
-        img.loading = 'lazy';
+        // img.loading = 'lazy';
 
         figure.appendChild(img)
 
@@ -35,9 +35,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         button.textContent = 'Details';
 
         const addButton = document.createElement('button');
-        addButton.textContent = "+";
+        addButton.textContent = "+ List";
         addButton.className = 'btn btn-primary add-button';
 
+        const logButton = document.createElement('button');
+        addButton.textContent = "Log";
+        addButton.className = 'btn btn-primary log-button';
 
         divCardActions.appendChild(button);
         divCardActions.appendChild(addButton);
@@ -95,6 +98,25 @@ document.addEventListener("DOMContentLoaded", async () => {
                             console.error("There was a problem with the fetch operation:", error);
                         }
                     };
+                div.querySelector('.log-button').onclick = async () => {
+                    try {
+                        const response = await fetch("https://plant-web-service.onrender.com/api/plant_log", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+    
+                            },
+                            body: JSON.stringify({ plant_id: item.plant_id, user_id: user.user_id })
+                        });
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        // alert("Plant added successfully!");
+                    } catch (error) {
+                        console.error("There was a problem with the fetch operation:", error);
+                    }
+                }
             } else {
                 div.style.display = 'none'; // Hide the node if it's not in the visible range
             }
@@ -175,7 +197,45 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
-    
+    const openLogModal = (plant) => {
+        // Open modal with form
+        let div = document.createElement('div');
+        div.classList = 'modal-div';
+
+        let formDiv = document.createElement('form');
+        formDiv.innerHTML = `
+            <form>
+                <label for="logDate">Log Date:</label>
+                <input type="date" id="logDate" name="logDate" required>
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes" rows="4" cols="50" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        `;
+
+        formDiv.onsubmit = async (event) => {
+            event.preventDefault();
+            const logDate = document.getElementById('logDate').value;
+            const notes = document.getElementById('notes').value;
+
+            try {
+                const response = await fetch("https://plant-web-service.onrender.com/api/plant_log", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({ plant_id: plant.plant_id, user_id: user.user_id, log_date: logDate, notes: notes })
+                });
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+            } catch (error) {
+                console.error("There was a problem with the fetch operation:", error);
+            }
+        };
+
+    }
     // moreInfoButton.onclick = () => {
     //     console.log("Navigating to plant details page");
     //     window.location.href = `plantdetails.html?plantId=${plant.plant_id}`;
