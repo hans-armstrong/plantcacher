@@ -38,9 +38,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         addButton.textContent = "+";
         addButton.className = 'btn btn-primary add-button';
 
+        const logButton = document.createElement('button')
+        logButton.textContent = "Found plant"
+        logButton.className = 'btn btn-primary log-button'
+
 
         divCardActions.appendChild(button);
         divCardActions.appendChild(addButton);
+        divCardActions.appendChild(logButton)
         divBody.appendChild(h2);
         divBody.appendChild(divCardActions);
         div.appendChild(figure);
@@ -95,6 +100,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                             console.error("There was a problem with the fetch operation:", error);
                         }
                     };
+                div.querySelector('.log-button').onclick = async () => {
+                    try {
+                        console.log('logged plant')
+                    } catch (error) {
+                        console.error('problem logging plant')
+                    }
+                }
             } else {
                 div.style.display = 'none'; // Hide the node if it's not in the visible range
             }
