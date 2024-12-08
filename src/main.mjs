@@ -35,11 +35,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         button.textContent = 'Details';
 
         const addButton = document.createElement('button');
-        addButton.textContent = "+";
+        addButton.textContent = "+ List";
         addButton.className = 'btn btn-primary add-button';
 
         const logButton = document.createElement('button')
-        logButton.textContent = "Found plant"
+        logButton.textContent = "Found"
         logButton.className = 'btn btn-primary log-button'
 
 
