@@ -7,23 +7,35 @@ export let plantLog = [];
 
 async function checkUserInLocalStorage() {
   user = JSON.parse(localStorage.getItem('user'));
+  let userIP = await getUserIpAddress();
+  console.log(`?ip=${userIP}`);
   if (user === null || user === undefined || user === '') {
-    let userObject = {
-      user_id: generateRandomId(),
-      ip: await getUserIpAddress(),
-      first_name: "",
-      last_name: "",
-      points: "0",
-    };
-    localStorage.setItem("user", JSON.stringify(userObject));
-    await sendUserToApi(userObject);
-    return userObject;
-  } else {
-    // user = await readUser()
-    await sendUserToApi(user);
-    console.log(user, "final")
-    return user;
+    try {
+      const response = await readUser(`ip=${userIP}`);
+      user = await response.json();
+      localStorage.setItem("user",JSON.stringify(user))
+      console.log(JSON.parse(localStorage.getItem('user')), "user from database")
+    } catch (error) {
+      console.error("There was a problem with the user fetch operation:", error);
+    }
+    if (user === null || user === undefined || user === '') {
+      let userObject = {
+        user_id: generateRandomId(),
+        ip: userIP,
+        first_name: "",
+        last_name: "",
+        points: "0",
+      };
+      localStorage.setItem("user", JSON.stringify(userObject));
+      await sendUserToApi(userObject);
+      return userObject;
+    } else {
+      // await sendUserToApi(user);
+      console.log(user, "final");
+      return user;
+    }
   }
+  return user
 }
 
 async function getUserIpAddress() {
@@ -57,10 +69,9 @@ async function sendUserToApi(user) {
   }
 }
 
-
-async function readUser() {
+async function readUser(param) {
   try {
-    const response = await fetch(`https://plant-web-service.onrender.com/api/user?user_id=${user.user_id}`, {
+    const response = await fetch(`https://plant-web-service.onrender.com/api/user?${param}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +81,6 @@ async function readUser() {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // console.log("User data fetched:", data);
     return data
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
@@ -102,7 +112,6 @@ async function readPlantList() {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // console.log("User list fetched:", data);
     return data;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
@@ -129,14 +138,13 @@ async function readPlantLog() {
   }
 }
 
-
-let pointsDOM = document.getElementById('pointsDOM')
-
+let pointsDOM = document.getElementById('pointsDOM');
 
 export default async function initialize() {
   user = await checkUserInLocalStorage();
-
-  pointsDOM.innerText = user.points
+  if (user) {
+    pointsDOM.innerText = user.points;
+  }
   let plantsUnfiltered = await readPlants();
   plantList = await readPlantList();
   plantLog = await readPlantLog();
@@ -147,10 +155,5 @@ export default async function initialize() {
   plants = plantsUnfiltered.filter(plant => 
     !plantListIds.includes(plant.plant_id)
   );
-  // console.log(user, plants, plantList)
-  return { user, plants, plantList, plantLog, pointsDOM }
+  return { user, plants, plantList, plantLog, pointsDOM };
 }
-
-// document.addEventListener("DOMContentLoaded", async () => {
-//   await initialize();
-// });

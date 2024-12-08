@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/output.css">
     <link rel="stylesheet" href="https://use.typekit.net/uwv0nmr.css">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
- 
+
     <title>PlantCacher: PlantLog</title>
 </head>
-<div class="flex wrap">
-    <header>
-        <h1>PlantCacher</h1>
-              <ul class="menu bg-base-200 w-80 p-4">
+
+<body>
+    <div class="flex wrap">
+        <header class="w-[350px] p-4 bg-gray-900">
+            <h1 class="text-5xl">PlantCacher</h1>
+            <ul class="menu bg-base-200 w-80 p-4">
                 <!-- Sidebar content here -->
                 <li><a href="/index.html">Explore</a></li>
                 <li><a href="/plantcacher/plantlist.html">PlantList</a></li>
                 <li><a href="/plantcacher/plantlog.html">PlantLog</a></li>
-              </ul>
-        <h2>Total points: <span id="pointsDOM"></span></h2>
-        <div id="searchDOM">
-            <input type="text" id="searchInputDOM" placeholder="Search for plants">
-            <button id="searchButton">Search</button>
-        </div>
-    </header>
-    <body>
-        <h3>PlantLog</h3>
-        <div id="plantLogDivDOM"></div>
-        <script type="module" src="/src/pages/plantlog.mjs"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <!-- <script type="module" src="/src/state.mjs"></script> -->
-        <script type="module" src="/src/utils/functions.mjs"></script>
-    </body>
-</div>
-<footer>
-    <p>PlantCacher</p>
-    <p>2024</p>
-    <p>Created by Hans Armstrong for educational purposes.</p>
-</footer>
+            </ul>
+            <div id="searchDOM">
+                <input type="text" id="searchInputDOM" placeholder="Search for plants">
+                <button id="searchButton">Search</button>
+            </div>
+            <h2>Total points: <span id="pointsDOM"></span></h2>
+            <div>
+                <p>
+                    Gotta catch 'em all! The PlantCacher app is like bird watching but for plants. If you see one, log
+                    it to earn points!
+                    Add to-be-found plants to the PlantList and once you spot them, you can add them to your log for
+                    points.
+
+                </p>
+            </div>
+        </header>
+        <main class="p-4">
+            <h3>PlantLog</h3>
+            <div id="plantLogDivDOM"></div>
+        </main>
+    </div>
+    <script type="module" src="/src/pages/plantlog.mjs"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script type="module" src="/src/state.mjs"></script> -->
+    <script type="module" src="/src/utils/functions.mjs"></script>
+</body>
+
 </html>
