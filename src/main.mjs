@@ -106,15 +106,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                     let div = document.createElement('div');
                     div.classList = 'modal-div';
 
+
+                    let xButton = document.createElement('button')
+                    xButton.textContent = 'x'
+                    xButton.classList = 'btn btn-primary add-button'
+                    xButton.onclick = async () => {
+                        div.remove()
+                    }
+
+                    div.appendChild(xButton)
+
                     let formElement = document.createElement('form');
                     formElement.innerHTML = `
-
                 <label for="logDate">Log Date:</label>
                 <input type="date" id="logDate" name="logDate" required>
                 <label for="notes">Notes:</label>
                 <textarea id="notes" name="notes" rows="4" cols="50" required></textarea>
-                <button type="submit">Submit</button>
-        `;
+                <button type="submit">Submit</button>`;
 
                     formElement.onsubmit = async (event) => {
                         event.preventDefault();
