@@ -1,11 +1,12 @@
 import initialize from "./state.mjs";
+import { generateRandomId } from "./utils/functions.mjs";
 import './style.css'
 
 document.addEventListener("DOMContentLoaded", async () => {
     let { user, plants, plantList } = await initialize();
     console.log(user, 'user');
     // console.log("plantList", plantList);
-
+    const formDiv = document.getElementById("formDiv")
     const gallery = document.getElementById("plantsDOM");
     const itemsPerPage = 20;
     let currentPage = 1;
@@ -35,11 +36,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         button.textContent = 'Details';
 
         const addButton = document.createElement('button');
-        addButton.textContent = "+";
+        addButton.textContent = "+ List";
         addButton.className = 'btn btn-primary add-button';
 
         const logButton = document.createElement('button')
-        logButton.textContent = "Found plant"
+        logButton.textContent = "Found"
         logButton.className = 'btn btn-primary log-button'
 
 
@@ -81,31 +82,73 @@ document.addEventListener("DOMContentLoaded", async () => {
                     window.location.href = `plantdetails.html?plantId=${item.plant_id}`;
                 };
                 div.querySelector('.add-button').onclick = async () => {
-                        // console.log(JSON.stringify(plant.plant_id), user.user_id)
+                    // console.log(JSON.stringify(plant.plant_id), user.user_id)
+                    try {
+                        const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+
+                            },
+                            body: JSON.stringify({ plant_id: item.plant_id, user_id: user.user_id })
+                        });
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        // alert("Plant added successfully!");
+                    } catch (error) {
+                        console.error("There was a problem with the fetch operation:", error);
+                    }
+                };
+                div.querySelector('.log-button').onclick = async () => {
+                    // Open modal with form
+                    let div = document.createElement('div');
+                    div.classList = 'modal-div';
+
+
+                    let xButton = document.createElement('button')
+                    xButton.textContent = 'x'
+                    xButton.classList = 'btn btn-primary add-button'
+                    xButton.onclick = async () => {
+                        div.remove()
+                    }
+
+                    div.appendChild(xButton)
+
+                    let formElement = document.createElement('form');
+                    formElement.innerHTML = `
+                <label for="logDate">Log Date:</label>
+                <input type="date" id="logDate" name="logDate" required>
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes" rows="4" cols="50" required></textarea>
+                <button type="submit">Submit</button>`;
+
+                    formElement.onsubmit = async (event) => {
+                        event.preventDefault();
+                        const logDate = document.getElementById('logDate').value;
+                        const notes = document.getElementById('notes').value;
+                        const bodyJSON = JSON.stringify({ plant_id: item.plant_id, log_id: generateRandomId(), user_id: user.user_id, log_date: logDate, notes: notes })
+                        console.log(bodyJSON)
                         try {
-                            const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
+                            const response = await fetch("https://plant-web-service.onrender.com/api/plant_log", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
                                     "Accept": "application/json"
-        
                                 },
-                                body: JSON.stringify({ plant_id: item.plant_id, user_id: user.user_id })
+                                body: bodyJSON
                             });
+                            console.log(response)
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
                             }
-                            // alert("Plant added successfully!");
                         } catch (error) {
                             console.error("There was a problem with the fetch operation:", error);
                         }
                     };
-                div.querySelector('.log-button').onclick = async () => {
-                    try {
-                        console.log('logged plant')
-                    } catch (error) {
-                        console.error('problem logging plant')
-                    }
+                    div.appendChild(formElement)
+                    formDiv.appendChild(div)
                 }
             } else {
                 div.style.display = 'none'; // Hide the node if it's not in the visible range
@@ -187,7 +230,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
-    
+
     // moreInfoButton.onclick = () => {
     //     console.log("Navigating to plant details page");
     //     window.location.href = `plantdetails.html?plantId=${plant.plant_id}`;

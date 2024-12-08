@@ -3,9 +3,10 @@ import { generateRandomId } from "./utils/functions.mjs";
 export let user = '';
 export let plants = [];
 export let plantList = [];
+export let plantLog = [];
 
 async function checkUserInLocalStorage() {
-  user = JSON.parse(localStorage.getItem("user"));
+  user = JSON.parse(localStorage.getItem('user'));
   if (user === null || user === undefined || user === '') {
     let userObject = {
       user_id: generateRandomId(),
@@ -47,7 +48,7 @@ async function sendUserToApi(user) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log("User sent to API:", data);
+    // console.log("User sent to API:", data);
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
   }
@@ -66,7 +67,7 @@ async function readUser() {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log("User data fetched:", data);
+    // console.log("User data fetched:", data);
     return data
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
@@ -98,7 +99,27 @@ async function readPlantList() {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log("User list fetched:", data);
+    // console.log("User list fetched:", data);
+    return data;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+async function readPlantLog() {
+  try {
+    const response = await fetch(`https://plant-web-service.onrender.com/api/plant_log?user_id=${user.user_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    console.log(response)
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    console.log("User log fetched:", data);
     return data;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
@@ -109,6 +130,7 @@ export default async function initialize() {
   user = await checkUserInLocalStorage();
   let plantsUnfiltered = await readPlants();
   plantList = await readPlantList();
+  plantLog = await readPlantLog();
   if (!Array.isArray(plantList)) {
     plantList = [];
   }
@@ -116,8 +138,8 @@ export default async function initialize() {
   plants = plantsUnfiltered.filter(plant => 
     !plantListIds.includes(plant.plant_id)
   );
-  console.log(user, plants, plantList)
-  return { user, plants, plantList }
+  // console.log(user, plants, plantList)
+  return { user, plants, plantList, plantLog }
 }
 
 // document.addEventListener("DOMContentLoaded", async () => {
