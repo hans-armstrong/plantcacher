@@ -67,75 +67,48 @@ document.addEventListener("DOMContentLoaded", async () => {
     let firstPlant = plantsToShow[0];
     // console.log(firstPlant)
 
-    for (let i = 0; i < nodePool.length; i++) {
-      const div = nodePool[i];
-      if (i < plantsToShow.length) {
-        const item = plantsToShow[i];
-        div.querySelector(".card-title").textContent = item.common_name;
-        div.querySelector("img").src = item.thumbnail_image_url;
-        div.querySelector("button").onclick = () => {
-          console.log("Navigating to plant details page");
-          window.location.href = `plantdetails.html?plantId=${item.plant_id}`;
-        };
-        div.querySelector(".add-button").onclick = async () => {
-          // console.log(JSON.stringify(plant.plant_id), user.user_id)
-          try {
-            const response = await fetch(
-              "https://plant-web-service.onrender.com/api/plant_list",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                },
-                body: JSON.stringify({
-                  plant_id: item.plant_id,
-                  user_id: user.user_id,
-                }),
-              }
-            );
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
+        for (let i = 0; i < nodePool.length; i++) {
+            const div = nodePool[i];
+            if (i < plantsToShow.length) {
+                const item = plantsToShow[i];
+                div.querySelector('.card-title').textContent = item.common_name;
+                div.querySelector('img').src = item.thumbnail_image_url;
+                div.querySelector('button').onclick = () => {
+                    console.log("Navigating to plant details page");
+                    window.location.href = `plantdetails.html?plantId=${item.plant_id}`;
+                };
+                div.querySelector('.add-button').onclick = async () => {
+                        // console.log(JSON.stringify(plant.plant_id), user.user_id)
+                        try {
+                            const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json"
+        
+                                },
+                                body: JSON.stringify({ plant_id: item.plant_id, user_id: user.user_id })
+                            });
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            // alert("Plant added successfully!");
+                        } catch (error) {
+                            console.error("There was a problem with the fetch operation:", error);
+                        }
+                    };
+                div.querySelector('.log-button').onclick = async () => {
+                    try {
+                        console.log('logged plant')
+                    } catch (error) {
+                        console.error('problem logging plant')
+                    }
+                }
+            } else {
+                div.style.display = 'none'; // Hide the node if it's not in the visible range
             }
-            // alert("Plant added successfully!");
-          } catch (error) {
-            console.error(
-              "There was a problem with the fetch operation:",
-              error
-            );
-          }
-        };
-        div.querySelector(".log-button").onclick = async () => {
-          try {
-            const response = await fetch(
-              "https://plant-web-service.onrender.com/api/plant_log",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                },
-                body: JSON.stringify({
-                  plant_id: item.plant_id,
-                  user_id: user.user_id,
-                }),
-              }
-            );
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            // alert("Plant added successfully!");
-          } catch (error) {
-            console.error(
-              "There was a problem with the fetch operation:",
-              error
-            );
-          }
-        };
-      } else {
-        div.style.display = "none"; // Hide the node if it's not in the visible range
-      }
-    }
+        }
+
 
     // plantsToShow.forEach(plant => {
     //     // console.log("plant", plant);
@@ -211,52 +184,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  const openLogModal = async (plant) => {
-    // Open modal with form
-    let div = document.createElement("div");
-    div.classList = "modal-div";
 
-    let formDiv = document.createElement("form");
-    formDiv.innerHTML = `
-            <form>
-                <label for="logDate">Log Date:</label>
-                <input type="date" id="logDate" name="logDate" required>
-                <label for="notes">Notes:</label>
-                <textarea id="notes" name="notes" rows="4" cols="50" required></textarea>
-                <button type="submit">Submit</button>
-            </form>
-        `;
-
-    formDiv.onsubmit = async (event) => {
-      event.preventDefault();
-      const logDate = document.getElementById("logDate").value;
-      const notes = document.getElementById("notes").value;
-
-      try {
-        const response = await fetch(
-          "https://plant-web-service.onrender.com/api/plant_log",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify({
-              plant_id: plant.plant_id,
-              user_id: user.user_id,
-              log_date: logDate,
-              notes: notes,
-            }),
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-      } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
-      }
-    };
-  };
   // moreInfoButton.onclick = () => {
   //     console.log("Navigating to plant details page");
   //     window.location.href = `plantdetails.html?plantId=${plant.plant_id}`;
