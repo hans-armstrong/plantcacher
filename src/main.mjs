@@ -84,9 +84,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     window.location.href = `plantdetails.html?plantId=${item.plant_id}`;
                 };
                 div.querySelector('.add-button').onclick = async () => {
-                    // console.log(JSON.stringify(plant.plant_id), user.user_id)
+                    console.log(JSON.stringify(item.plant_id), user.user_id)
                     try {
-                        const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
+                        const response = await fetch("http://localhost:10000/api/plant_list", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",

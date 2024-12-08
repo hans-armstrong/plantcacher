@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const updatePoints = async (userid, firstname, lastname, ipAddress, points) => {
-        // localStorage.setItem('user', JSON.stringify({ user_id: userid, first_name: firstname, last_name: lastname, ip: ipAddress, points: points }))
+        localStorage.setItem('user', JSON.stringify({ user_id: userid, first_name: firstname, last_name: lastname, ip: ipAddress, points: points }))
         try {
             const response = await fetch("https://plant-web-service.onrender.com/api/users", {
                 method: "PUT",

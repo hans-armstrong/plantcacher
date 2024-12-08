@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
- 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/uwv0nmr.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
+
     <title>PlantCacher</title>
-  <script type="module" crossorigin src="/plantcacher/assets/main-Breiad6j.js"></script>
-  <link rel="modulepreload" crossorigin href="/plantcacher/assets/state-DdzIWKEB.js">
+  <script type="module" crossorigin src="/plantcacher/assets/main-DDnMGfYA.js"></script>
+  <link rel="modulepreload" crossorigin href="/plantcacher/assets/state-CcQ5ey2X.js">
   <link rel="stylesheet" crossorigin href="/plantcacher/assets/state-D8kRcF1m.css">
-  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-DaL2r5O6.css">
+  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-lxQGwiVs.css">
 </head>
+
 <body>
-<div class="flex wrap">
-    <header>
-        <h1>PlantCacher</h1>
-              <ul class="menu bg-base-200 w-80 p-4">
+    <div class="flex wrap">
+        <header>
+            <h1>PlantCacher</h1>
+            <ul class="menu bg-base-200 w-80 p-4">
                 <!-- Sidebar content here -->
                 <li><a href="/index.html">Explore</a></li>
                 <li><a href="/plantcacher/plantlist.html">PlantList</a></li>
                 <li><a href="/plantcacher/plantlog.html">PlantLog</a></li>
-              </ul>
-        <h2>Total points: <span id="pointsDOM"></span></h2>
-        <div id="searchDOM">
-            <input type="text" id="searchInputDOM" placeholder="Search for plants">
-            <button id="searchButton">Search</button>
-        </div>
-    </header>
+            </ul>
+            <div id="searchDOM">
+                <input type="text" id="searchInputDOM" placeholder="Search for plants">
+                <button id="searchButton">Search</button>
+            </div>
+            <h2>Total points: <span id="pointsDOM"></span></h2>
+        </header>
         <main>
-            <div class="">
-                <div>
-                    <div id="plantsDOM"></div>
-                    <div id="pagination"></div>
+            <div class="listWrapper">
+                <div id="formDiv"></div>                <!-- <img src="images/hero.jpg" alt="Small green leaves on a tree hero image." class="h-64" /> -->
+                <div id="plantsDOM" class="flex wrap">
+                    <!-- <div class="card card-compact bg-base-100 w-96 shadow-xl">
+                            <figure>
+                                <img loading="lazy" />
+                            </figure>
+                            <div class="card-body">
+                                <h2 class="card-title"></h2>
+                                <p></p>
+                                <div class="card-actions justify-end">
+                                    <button class="btn btn-primary">Details</button>
+                                </div>
+                            </div>
+                        </div> -->
+
                 </div>
+                <div id="pagination"></div>
             </div>
         </main>
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-</div>
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    </div>
 </body>
 <footer>
     <p>PlantCacher</p>
     <p>2024</p>
-            <button id="searchButton">Search</button>
+    <button id="searchButton">Search</button>
 </footer>
+
 </html>

@@ -20,6 +20,7 @@ async function checkUserInLocalStorage() {
     return userObject;
   } else {
     // user = await readUser()
+    await sendUserToApi(user);
     console.log(user, "final")
     return user;
   }
@@ -41,14 +42,16 @@ async function sendUserToApi(user) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Accept": "application/json"
       },
       body: JSON.stringify(user),
     });
+    console.log(response, 'user post response')
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // console.log("User sent to API:", data);
+    console.log("User sent to API:", data);
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
   }
