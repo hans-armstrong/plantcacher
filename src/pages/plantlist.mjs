@@ -1,15 +1,15 @@
 import initialize from "../state.mjs";
 import { generateRandomId } from "../utils/functions.mjs";
 
-
 document.addEventListener("DOMContentLoaded", async () => {
-    let { user, plantList } = await initialize();
+    let { user, plantList, pointsDOM } = await initialize();
     
     const formDiv = document.getElementById("formDiv")
     let plantListDivDOM = document.getElementById('plantListDivDOM');
 
     console.log(plantList);
     plantList.forEach(plant => {
+        console.log(plant)
         const plantDiv = document.createElement('div');
         plantDiv.setAttribute('data-plant-id', plant.plant_id)
         plantDiv.innerHTML = `
@@ -62,6 +62,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
                     }
+                    pointsDOM.innerText = Number(user.points) + Number(plant.points)
+                    await updatePoints(user.user_id, user.first_name, user.last_name, user.ip, Number(user.points) + Number(plant.points));
                     div.remove()
                 } catch (error) {
                     console.error("There was a problem with the fetch operation:", error);
@@ -113,4 +115,23 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         })
     });
+
+    const updatePoints = async (userid, firstname, lastname, ipAddress, points) => {
+        // localStorage.setItem('user', JSON.stringify({ user_id: userid, first_name: firstname, last_name: lastname, ip: ipAddress, points: points }))
+        try {
+            const response = await fetch("https://plant-web-service.onrender.com/api/users", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ user_id: userid, first_name: firstname, last_name: lastname, ip: ipAddress, points: points })
+            });
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+        }
+    };
 })

@@ -5,9 +5,11 @@ import './style.css'
 document.addEventListener("DOMContentLoaded", async () => {
     let { user, plants, plantList } = await initialize();
     console.log(user, 'user');
+    
     // console.log("plantList", plantList);
     const formDiv = document.getElementById("formDiv")
     const gallery = document.getElementById("plantsDOM");
+
     const itemsPerPage = 20;
     let currentPage = 1;
 
@@ -39,14 +41,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         addButton.textContent = "+ List";
         addButton.className = 'btn btn-primary add-button';
 
-        const logButton = document.createElement('button')
-        logButton.textContent = "Found"
-        logButton.className = 'btn btn-primary log-button'
+        // const logButton = document.createElement('button')
+        // logButton.textContent = "Found"
+        // logButton.className = 'btn btn-primary log-button'
 
 
         divCardActions.appendChild(button);
         divCardActions.appendChild(addButton);
-        divCardActions.appendChild(logButton)
+        // divCardActions.appendChild(logButton)
         divBody.appendChild(h2);
         divBody.appendChild(divCardActions);
         div.appendChild(figure);
@@ -101,56 +103,56 @@ document.addEventListener("DOMContentLoaded", async () => {
                         console.error("There was a problem with the fetch operation:", error);
                     }
                 };
-                div.querySelector('.log-button').onclick = async () => {
-                    // Open modal with form
-                    let div = document.createElement('div');
-                    div.classList = 'modal-div';
+                // div.querySelector('.log-button').onclick = async () => {
+                //     // Open modal with form
+                //     let div = document.createElement('div');
+                //     div.classList = 'modal-div';
 
 
-                    let xButton = document.createElement('button')
-                    xButton.textContent = 'x'
-                    xButton.classList = 'btn btn-primary add-button'
-                    xButton.onclick = async () => {
-                        div.remove()
-                    }
+                //     let xButton = document.createElement('button')
+                //     xButton.textContent = 'x'
+                //     xButton.classList = 'btn btn-primary add-button'
+                //     xButton.onclick = async () => {
+                //         div.remove()
+                //     }
 
-                    div.appendChild(xButton)
+                //     div.appendChild(xButton)
 
-                    let formElement = document.createElement('form');
-                    formElement.innerHTML = `
-                <label for="logDate">Log Date:</label>
-                <input type="date" id="logDate" name="logDate" required>
-                <label for="notes">Notes:</label>
-                <textarea id="notes" name="notes" rows="4" cols="50" required></textarea>
-                <button type="submit">Submit</button>`;
+                //     let formElement = document.createElement('form');
+                //     formElement.innerHTML = `
+                // <label for="logDate">Log Date:</label>
+                // <input type="date" id="logDate" name="logDate" required>
+                // <label for="notes">Notes:</label>
+                // <textarea id="notes" name="notes" rows="4" cols="50" required></textarea>
+                // <button type="submit">Submit</button>`;
 
-                    formElement.onsubmit = async (event) => {
-                        event.preventDefault();
-                        const logDate = document.getElementById('logDate').value;
-                        const notes = document.getElementById('notes').value;
-                        const bodyJSON = JSON.stringify({ plant_id: item.plant_id, log_id: generateRandomId(), user_id: user.user_id, log_date: logDate, notes: notes })
-                        console.log(bodyJSON)
-                        try {
-                            const response = await fetch("https://plant-web-service.onrender.com/api/plant_log", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Accept": "application/json"
-                                },
-                                body: bodyJSON
-                            });
-                            console.log(response)
-                            if (!response.ok) {
-                                throw new Error("Network response was not ok");
-                            }
-                            div.remove()
-                        } catch (error) {
-                            console.error("There was a problem with the fetch operation:", error);
-                        }
-                    };
-                    div.appendChild(formElement)
-                    formDiv.appendChild(div)
-                }
+                //     formElement.onsubmit = async (event) => {
+                //         event.preventDefault();
+                //         const logDate = document.getElementById('logDate').value;
+                //         const notes = document.getElementById('notes').value;
+                //         const bodyJSON = JSON.stringify({ plant_id: item.plant_id, log_id: generateRandomId(), user_id: user.user_id, log_date: logDate, notes: notes })
+                //         console.log(bodyJSON)
+                //         try {
+                //             const response = await fetch("https://plant-web-service.onrender.com/api/plant_log", {
+                //                 method: "POST",
+                //                 headers: {
+                //                     "Content-Type": "application/json",
+                //                     "Accept": "application/json"
+                //                 },
+                //                 body: bodyJSON
+                //             });
+                //             console.log(response)
+                //             if (!response.ok) {
+                //                 throw new Error("Network response was not ok");
+                //             }
+                //             div.remove()
+                //         } catch (error) {
+                //             console.error("There was a problem with the fetch operation:", error);
+                //         }
+                //     };
+                //     div.appendChild(formElement)
+                //     formDiv.appendChild(div)
+                // }
             } else {
                 div.style.display = 'none'; // Hide the node if it's not in the visible range
             }

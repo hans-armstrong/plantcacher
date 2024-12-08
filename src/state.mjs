@@ -126,8 +126,14 @@ async function readPlantLog() {
   }
 }
 
+
+let pointsDOM = document.getElementById('pointsDOM')
+
+
 export default async function initialize() {
   user = await checkUserInLocalStorage();
+
+  pointsDOM.innerText = user.points
   let plantsUnfiltered = await readPlants();
   plantList = await readPlantList();
   plantLog = await readPlantLog();
@@ -139,7 +145,7 @@ export default async function initialize() {
     !plantListIds.includes(plant.plant_id)
   );
   // console.log(user, plants, plantList)
-  return { user, plants, plantList, plantLog }
+  return { user, plants, plantList, plantLog, pointsDOM }
 }
 
 // document.addEventListener("DOMContentLoaded", async () => {
