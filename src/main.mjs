@@ -143,6 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
                             }
+                            div.remove()
                         } catch (error) {
                             console.error("There was a problem with the fetch operation:", error);
                         }

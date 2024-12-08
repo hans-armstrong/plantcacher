@@ -1,4 +1,6 @@
 import initialize from "../state.mjs";
+import { generateRandomId } from "../utils/functions.mjs";
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     let plantLogDivDOM = document.getElementById('plantLogDivDOM');
@@ -18,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }); 
     plantLog.forEach(plant => {
         let imagesDiv = document.getElementById(`images-${plant.plant_id}`);
-        let plantImages 
+        // let plantImages 
         imagesDiv.addEventListener('click', async () => {
             try {
                 const response = await fetch(`https://plant-web-service.onrender.com/api/plant_images?plant_id=${plant.plant_id}`, {
