@@ -183,8 +183,8 @@ export let userPOST = async (user) => {
           }
           
           const getData = await getResponse.json();
-          localStorage.setItem('user', getData)
-          return getData;
+          localStorage.setItem('user', getData[0])
+          return getData[0];
           
       } catch (getError) {
           console.error("GET request failed:", getError);
