@@ -1,18 +1,19 @@
 import { generateRandomId } from "./utils/functions.mjs";
 
-export let user = '';
+// export let user = '';
 export let plants = [];
 export let plantList = [];
 export let plantLog = [];
 
 async function checkUserInLocalStorage() {
-  user = JSON.parse(localStorage.getItem('user'));
+  // user = JSON.parse(localStorage.getItem('user'));
   let userIP = await getUserIpAddress();
-  console.log(`?ip=${userIP}`);
-  if (user === null || user === undefined || user === '') {
+  // console.log(`?ip=${userIP}`);
+  if (JSON.parse(localStorage.getItem('user'))) {
     try {
       const response = await readUser(`ip=${userIP}`);
       user = await response.json();
+      console.log('read user', user)
       localStorage.setItem("user",JSON.stringify(user))
       console.log(JSON.parse(localStorage.getItem('user')), "user from database")
     } catch (error) {
@@ -141,7 +142,7 @@ async function readPlantLog() {
 let pointsDOM = document.getElementById('pointsDOM');
 
 export default async function initialize() {
-  user = await checkUserInLocalStorage();
+  let user = await checkUserInLocalStorage();
   if (user) {
     pointsDOM.innerText = user.points;
   }
@@ -158,4 +159,6 @@ export default async function initialize() {
   return { user, plants, plantList, plantLog, pointsDOM };
 }
 
-initialize()
+initialize().then(({ user, plants, plantList, plantLog, pointsDOM }) => {
+  // Further actions after initialization if needed
+});
