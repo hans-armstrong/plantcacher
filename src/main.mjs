@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const nodePool = Array.from({ length: 20 }, (_, i) => {
         const div = document.createElement('div');
-        div.className = 'list-item card card-compact bg-base-100 w-96 shadow-xl';
+        div.className = 'list-item card card-compact bg-base-100 shadow-xl min-w-96 my-4';
 
         const figure = document.createElement('figure');
         const img = document.createElement('img');
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 div.querySelector('.add-button').onclick = async () => {
                     console.log(JSON.stringify(item.plant_id), user.user_id)
                     try {
-                        const response = await fetch("http://localhost:10000/api/plant_list", {
+                        const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",

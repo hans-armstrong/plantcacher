@@ -8,16 +8,16 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
 
     <title>PlantCacher</title>
-  <script type="module" crossorigin src="/plantcacher/assets/main-DDnMGfYA.js"></script>
-  <link rel="modulepreload" crossorigin href="/plantcacher/assets/state-CcQ5ey2X.js">
+  <script type="module" crossorigin src="/plantcacher/assets/main-BN1GfMxu.js"></script>
+  <link rel="modulepreload" crossorigin href="/plantcacher/assets/state-BIFfatHf.js">
   <link rel="stylesheet" crossorigin href="/plantcacher/assets/state-D8kRcF1m.css">
-  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-lxQGwiVs.css">
+  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-_7N-FNmf.css">
 </head>
 
 <body>
     <div class="flex wrap">
-        <header>
-            <h1>PlantCacher</h1>
+        <header class="w-[350px] max-w-[350px] p-4 bg-gray-900">
+            <h1 class="text-5xl">PlantCacher</h1>
             <ul class="menu bg-base-200 w-80 p-4">
                 <!-- Sidebar content here -->
                 <li><a href="/index.html">Explore</a></li>
@@ -29,11 +29,16 @@
                 <button id="searchButton">Search</button>
             </div>
             <h2>Total points: <span id="pointsDOM"></span></h2>
+            <div><p>
+                Gotta catch 'em all! The PlantCacher app is like bird watching but for plants. If you see one, log it to earn points! 
+                Add to-be-found plants to the PlantList and once you spot them, you can add them to your log for points. 
+    
+            </p></div>
         </header>
-        <main>
+        <main class="p-4 max-w-screen-2xl">
             <div class="listWrapper">
                 <div id="formDiv"></div>                <!-- <img src="images/hero.jpg" alt="Small green leaves on a tree hero image." class="h-64" /> -->
-                <div id="plantsDOM" class="flex wrap">
+                <div id="plantsDOM" class="flex overflow-x-scroll">
                     <!-- <div class="card card-compact bg-base-100 w-96 shadow-xl">
                             <figure>
                                 <img loading="lazy" />
@@ -54,10 +59,6 @@
         <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     </div>
 </body>
-<footer>
-    <p>PlantCacher</p>
-    <p>2024</p>
-    <button id="searchButton">Search</button>
-</footer>
+
 
 </html>
