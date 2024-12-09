@@ -6,10 +6,10 @@ export let plantList = [];
 export let plantLog = [];
 
 async function checkUserInLocalStorage() {
-  // user = JSON.parse(localStorage.getItem('user'));
+  user = JSON.parse(localStorage.getItem('user'));
   let userIP = await getUserIpAddress();
   // console.log(`?ip=${userIP}`);
-  if (JSON.parse(localStorage.getItem('user'))) {
+  if (user === null || user === undefined || user === '') {
     try {
       const response = await readUser(`ip=${userIP}`);
       user = await response.json();
@@ -159,6 +159,4 @@ export default async function initialize() {
   return { user, plants, plantList, plantLog, pointsDOM };
 }
 
-initialize().then(({ user, plants, plantList, plantLog, pointsDOM }) => {
-  // Further actions after initialization if needed
-});
+initialize()
