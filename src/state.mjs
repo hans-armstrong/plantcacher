@@ -167,24 +167,53 @@ initialize().then(({ user, plants, plantList, plantLog, pointsDOM }) => {
   // Further actions after initialization if needed
 });
 
-export let userPOST =  async (user) => {
+export let userPOST = async (user) => {
   try {
-  const response = await fetch("https://plant-web-service.onrender.com/api/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(user),
-  });
-  console.log(response, 'user post response')
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
+      // First try-catch for GET request
+      try {
+          const getResponse = await fetch(`https://plant-web-service.onrender.com/api/user?ip=${user.ip}`, {
+              method: "GET",
+              headers: {
+                  "Content-Type": "application/json",
+              }
+          });
+          
+          if (!getResponse.ok) {
+              throw new Error("GET request failed");
+          }
+          
+          const getData = await getResponse.json();
+          return getData;
+          
+      } catch (getError) {
+          console.error("GET request failed:", getError);
+          
+          // Second try-catch for POST request (only if GET fails)
+          try {
+              const postResponse = await fetch("https://plant-web-service.onrender.com/api/users", {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                      "Accept": "application/json"
+                  },
+                  body: JSON.stringify(user),
+              });
+              
+              if (!postResponse.ok) {
+                  throw new Error("POST request failed");
+              }
+              
+              const postData = await postResponse.json();
+              console.log("User sent to API:", postData);
+              return postData;
+              
+          } catch (postError) {
+              console.error("POST request failed:", postError);
+              throw postError; // Re-throw to be caught by outer catch
+          }
+      }
+  } catch (error) {
+      console.error("Operation failed:", error);
+      throw error; // Re-throw if needed by calling code
   }
-  const data = await response.json();
-  console.log("User sent to API:", data);
-  return data
-} catch (error) {
-  console.error("There was a problem with the fetch operation:", error);
-}
-}
+};
