@@ -138,9 +138,17 @@ async function readPlantLog() {
 let pointsDOM = document.getElementById('pointsDOM');
 
 export default async function initialize() {
-  user = await checkUserInLocalStorage();
+  // user = await checkUserInLocalStorage();
+  user =  {
+    user_id: generateRandomId(),
+    ip: await getUserIpAddress(),
+    first_name: "",
+    last_name: "",
+    points: "0",
+  }
   if (user) {
     pointsDOM.innerText = user.points;
+    await userPOST(user)
   }
   let plantsUnfiltered = await readPlants();
   plantList = await readPlantList();
@@ -158,3 +166,25 @@ export default async function initialize() {
 initialize().then(({ user, plants, plantList, plantLog, pointsDOM }) => {
   // Further actions after initialization if needed
 });
+
+export let userPOST =  async (user) => {
+  try {
+  const response = await fetch("https://plant-web-service.onrender.com/api/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(user),
+  });
+  console.log(response, 'user post response')
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  const data = await response.json();
+  console.log("User sent to API:", data);
+  return data
+} catch (error) {
+  console.error("There was a problem with the fetch operation:", error);
+}
+}
