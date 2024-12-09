@@ -147,8 +147,8 @@ export default async function initialize() {
     points: "0",
   }
   if (user) {
+    user = await userPOST(user)
     pointsDOM.innerText = user.points;
-    await userPOST(user)
   }
   let plantsUnfiltered = await readPlants();
   plantList = await readPlantList();
@@ -183,6 +183,7 @@ export let userPOST = async (user) => {
           }
           
           const getData = await getResponse.json();
+          localStorage.setItem('user', getData)
           return getData;
           
       } catch (getError) {
