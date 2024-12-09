@@ -27,10 +27,10 @@ async function checkUserInLocalStorage() {
         points: "0",
       };
       localStorage.setItem("user", JSON.stringify(userObject));
-      await sendUserToApi(userObject);
+      await sendUserToApi(userObject); // Ensure this function is called
       return userObject;
     } else {
-      // await sendUserToApi(user);
+      await sendUserToApi(user);
       console.log(user, "final");
       return user;
     }
