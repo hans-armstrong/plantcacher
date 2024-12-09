@@ -1,6 +1,6 @@
 import { generateRandomId } from "./utils/functions.mjs";
 
-// export let user = '';
+export let user = '';
 export let plants = [];
 export let plantList = [];
 export let plantLog = [];
@@ -142,7 +142,7 @@ async function readPlantLog() {
 let pointsDOM = document.getElementById('pointsDOM');
 
 export default async function initialize() {
-  let user = await checkUserInLocalStorage();
+  user = await checkUserInLocalStorage();
   if (user) {
     pointsDOM.innerText = user.points;
   }
