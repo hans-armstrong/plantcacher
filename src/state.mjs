@@ -12,31 +12,27 @@ async function checkUserInLocalStorage() {
   if (user === null || user === undefined || user === '') {
     try {
       const response = await readUser(`ip=${userIP}`);
-      user = await response.json();
-      console.log('read user', user)
-      localStorage.setItem("user",JSON.stringify(user))
-      console.log(JSON.parse(localStorage.getItem('user')), "user from database")
+      if (response) {
+        user = response;
+        localStorage.setItem("user", JSON.stringify(user));
+        console.log(JSON.parse(localStorage.getItem('user')), "user from database");
+      } else {
+        let userObject = {
+          user_id: generateRandomId(),
+          ip: userIP,
+          first_name: "",
+          last_name: "",
+          points: "0",
+        };
+        localStorage.setItem("user", JSON.stringify(userObject));
+        await sendUserToApi(userObject);
+        user = userObject;
+      }
     } catch (error) {
       console.error("There was a problem with the user fetch operation:", error);
     }
-    if (user === null || user === undefined || user === '') {
-      let userObject = {
-        user_id: generateRandomId(),
-        ip: userIP,
-        first_name: "",
-        last_name: "",
-        points: "0",
-      };
-      localStorage.setItem("user", JSON.stringify(userObject));
-      await sendUserToApi(userObject); // Ensure this function is called
-      return userObject;
-    } else {
-      await sendUserToApi(user);
-      console.log(user, "final");
-      return user;
-    }
   }
-  return user
+  return user;
 }
 
 async function getUserIpAddress() {
@@ -82,7 +78,7 @@ async function readUser(param) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    return data
+    return data;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
   }
@@ -159,4 +155,6 @@ export default async function initialize() {
   return { user, plants, plantList, plantLog, pointsDOM };
 }
 
-initialize()
+initialize().then(({ user, plants, plantList, plantLog, pointsDOM }) => {
+  // Further actions after initialization if needed
+});
