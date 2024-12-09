@@ -157,3 +157,5 @@ export default async function initialize() {
   );
   return { user, plants, plantList, plantLog, pointsDOM };
 }
+
+initialize()
