@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     searchButton.onclick = async () => {
         let query = sanitizeInput(searchInput.value) 
         try {
-            const response = fetch(`https://trefle.io/api/v1/plants/search?token=${userToken}&q=${query}`)
+            const response = await fetch(`https://trefle.io/api/v1/plants/search?token=${userToken}&q=${query}`)
 
             let data = await response.json()
             console.log(data)
