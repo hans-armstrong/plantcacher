@@ -8,53 +8,51 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
 
     <title>PlantCacher</title>
-  <script type="module" crossorigin src="/plantcacher/assets/main-VHZbVz1Q.js"></script>
+  <script type="module" crossorigin src="/plantcacher/assets/main-DMdECdQb.js"></script>
   <link rel="modulepreload" crossorigin href="/plantcacher/assets/state-CZPM44ZT.js">
   <link rel="stylesheet" crossorigin href="/plantcacher/assets/state-D8kRcF1m.css">
-  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-_7N-FNmf.css">
+  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-CiIlSo38.css">
 </head>
 
 <body>
     <div class="flex wrap">
-        <header class="w-[350px] max-w-[350px] p-4 bg-gray-900">
-            <h1 class="text-5xl">PlantCacher</h1>
+        <header class="w-[350px] max-w-[350px] p-4 bg-gray-900 h-screen flex flex-col">
+            <h1 class="text-5xl mb-2 font-bold">PlantCacher</h1>
             <ul class="menu bg-base-200 w-80 p-4">
                 <!-- Sidebar content here -->
                 <li><a href="/plantcacher/index.html">Explore</a></li>
                 <li><a href="/plantcacher/plantlist.html">PlantList</a></li>
                 <li><a href="/plantcacher/plantlog.html">PlantLog</a></li>
             </ul>
-            <div id="searchDOM">
-                <input type="text" id="searchInputDOM" placeholder="Search for plants">
-                <button id="searchButton">Search</button>
+            <div class="my-6" id="searchDOM">
+                <input class="input input-bordered max-w-xs" type="text" id="searchInputDOM"
+                    placeholder="Search for plants">
+                <button class="btn" id="searchButton">Search</button>
             </div>
-            <h2>Total points: <span id="pointsDOM"></span></h2>
-            <div><p>
-                Gotta catch 'em all! The PlantCacher app is like bird watching but for plants. If you see one, log it to earn points! 
-                Add to-be-found plants to the PlantList and once you spot them, you can add them to your log for points. 
-    
-            </p></div>
-        </header>
-        <main class="p-4 max-w-screen-2xl">
-            <div class="listWrapper">
-                <div id="formDiv"></div>                <!-- <img src="images/hero.jpg" alt="Small green leaves on a tree hero image." class="h-64" /> -->
-                <div id="plantsDOM" class="flex overflow-x-scroll">
-                    <!-- <div class="card card-compact bg-base-100 w-96 shadow-xl">
-                            <figure>
-                                <img loading="lazy" />
-                            </figure>
-                            <div class="card-body">
-                                <h2 class="card-title"></h2>
-                                <p></p>
-                                <div class="card-actions justify-end">
-                                    <button class="btn btn-primary">Details</button>
-                                </div>
-                            </div>
-                        </div> -->
-
+            <div>
+                <p class="text-lg font-bold mt-6 mb-2">Like bird watching but for plants.</p>
+                <ol>
+                    <li>1. Plant your list &#127793; </li>
+                    <li>2. Log your plants &#127794;</li>
+                    <li>3. Harvest points! &#127809;</li>
+                </ol>
+            </div>
+            <div class="mt-auto bg-teal-700/75 rounded-lg flex items-center text-center text-black p-6 my-2">
+                <div class="w-full">
+                    <h2 class="text-center"><span class="block font-bold text-2xl text-white" id="pointsDOM"></span>
+                        Points</h2>
                 </div>
-                <div id="pagination"></div>
             </div>
+        </header>
+        <main class="p-4 ">
+            <div class="listWrapper h-screen">
+                <!-- <img src="images/hero.jpg" alt="Small green leaves on a tree hero image." class="h-64" /> -->
+                <!-- Parent container -->
+                <div id="plantsDOM" class="">
+                </div>
+                <div id="pagination" class="join"></div>
+            </div>
+            <div id="formDiv"></div>
         </main>
         <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     </div>

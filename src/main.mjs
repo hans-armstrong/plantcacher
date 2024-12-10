@@ -10,42 +10,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     const formDiv = document.getElementById("formDiv")
     const gallery = document.getElementById("plantsDOM");
 
-    const itemsPerPage = 20;
+    const itemsPerPage = 5;
     let currentPage = 1;
 
-    const nodePool = Array.from({ length: 20 }, (_, i) => {
+    const nodePool = Array.from({ length: 5 }, (_, i) => {
         const div = document.createElement('div');
-        div.className = 'list-item card card-compact bg-base-100 shadow-xl min-w-96 my-4';
+        div.classList = 'plant-parent-div carousel-item'; // Add flex-shrink-0 to prevent shrinking
 
         const figure = document.createElement('figure');
+        figure.classList = 'plant-figure max-w-[200px] h-auto flex-none';
         const img = document.createElement('img');
-        img.className = 'list-img';
+        img.classList = 'plant-img'; // Add object-cover to maintain aspect ratio
         img.loading = 'lazy';
 
-        figure.appendChild(img)
-
+        
         const divBody = document.createElement('div');
-        divBody.className = 'card-body';
-
+        divBody.classList = 'plant-content';
+        
         const h2 = document.createElement('h2');
-        h2.className = 'card-title';
-
+        h2.classList = 'plant-title';
+        
         const divCardActions = document.createElement('div');
-        divCardActions.className = 'card-actions justify-end';
-
+        divCardActions.classList = 'plant-buttons';
+        
         const button = document.createElement('button');
-        button.className = 'btn btn-primary';
+        button.classList = 'btn btn-primary detail-button';
         button.textContent = 'Details';
-
+        
         const addButton = document.createElement('button');
         addButton.textContent = "+ List";
-        addButton.className = 'btn btn-primary add-button';
-
+        addButton.classList = 'btn btn-primary add-button';
+        
         // const logButton = document.createElement('button')
         // logButton.textContent = "Found"
         // logButton.className = 'btn btn-primary log-button'
-
-
+        
+        
+        figure.appendChild(img)
         divCardActions.appendChild(button);
         divCardActions.appendChild(addButton);
         // divCardActions.appendChild(logButton)
@@ -77,9 +78,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             const div = nodePool[i];
             if (i < plantsToShow.length) {
                 const item = plantsToShow[i];
-                div.querySelector('.card-title').textContent = item.common_name;
+                div.querySelector('.plant-title').textContent = item.common_name;
                 div.querySelector('img').src = item.thumbnail_image_url;
-                div.querySelector('button').onclick = () => {
+                div.querySelector('.detail-button').onclick = () => {
                     console.log("Navigating to plant details page");
                     window.location.href = `plantdetails.html?plantId=${item.plant_id}`;
                 };
@@ -222,42 +223,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const totalPages = Math.ceil(plants.length / itemsPerPage);
 
-        for (let i = 1; i <= totalPages; i++) {
-            const button = document.createElement("button");
-            button.textContent = i;
-            button.onclick = () => {
-                currentPage = i;
+        const prevButton = document.createElement("button");
+        prevButton.textContent = "Previous page";
+        prevButton.classList = 'join-item btn btn-outline';
+        prevButton.onclick = () => {
+            if (currentPage > 1) {
+                currentPage--;
                 renderPage(currentPage);
-            };
-            pagination.appendChild(button);
-        }
+            }
+        };
+        pagination.appendChild(prevButton);
+
+        const nextButton = document.createElement("button");
+        nextButton.textContent = "Next";
+        nextButton.classList = 'join-item btn btn-outline';
+        nextButton.onclick = () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage(currentPage);
+            }
+        };
+        pagination.appendChild(nextButton);
     };
-
-
-    // moreInfoButton.onclick = () => {
-    //     console.log("Navigating to plant details page");
-    //     window.location.href = `plantdetails.html?plantId=${plant.plant_id}`;
-    // };
-
-    // if(addButton) {            
-    //     addButton.onclick = async () => {
-    //     console.log("Adding plant to user's list");
-    //     try {
-    //         const response = await fetch("https://plant-web-service.onrender.com/api/plant_list", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({ plant_id: plant.plant_id, user_id: user.user_id })
-    //         });
-    //         if (!response.ok) {
-    //             throw new Error("Network response was not ok");
-    //         }
-    //         // alert("Plant added successfully!");
-    //     } catch (error) {
-    //         console.error("There was a problem with the fetch operation:", error);
-    //     }
-    // };
 
     renderPage(currentPage);
     createPaginationButtons();

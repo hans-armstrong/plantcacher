@@ -15,32 +15,35 @@
 
 <body>
     <div class="flex wrap">
-        <header class="w-[350px] p-4 bg-gray-900">
-            <h1 class="text-5xl">PlantCacher</h1>
+        <header class="w-[350px] max-w-[350px] p-4 bg-gray-900 h-screen flex flex-col">
+            <h1 class="text-5xl mb-2 font-bold">PlantCacher</h1>
             <ul class="menu bg-base-200 w-80 p-4">
                 <!-- Sidebar content here -->
                 <li><a href="/plantcacher/index.html">Explore</a></li>
                 <li><a href="/plantcacher/plantlist.html">PlantList</a></li>
                 <li><a href="/plantcacher/plantlog.html">PlantLog</a></li>
             </ul>
-            <div id="searchDOM">
-                <input type="text" id="searchInputDOM" placeholder="Search for plants">
-                <button id="searchButton">Search</button>
+            <div class="my-6" id="searchDOM">
+                <input class="input input-bordered max-w-xs" type="text" id="searchInputDOM" placeholder="Search for plants">
+                <button class="btn" id="searchButton">Search</button>
             </div>
-            <h2>Total points: <span id="pointsDOM"></span></h2>
             <div>
-                <p>
-                    Gotta catch 'em all! The PlantCacher app is like bird watching but for plants. If you see one, log
-                    it to earn points!
-                    Add to-be-found plants to the PlantList and once you spot them, you can add them to your log for
-                    points.
-
-                </p>
+                <p class="text-lg font-bold mt-6 mb-2">Like bird watching but for plants.</p>
+                <ol>
+                    <li>1. Plant your list &#127793; </li>
+                    <li>2. Log your plants &#127794;</li>
+                    <li>3. Harvest points! &#127809;</li>
+                </ol>
+            </div>
+            <div class= "mt-auto bg-teal-700/75 rounded-lg flex items-center text-center text-black p-6 my-2">
+                <div class="w-full">
+                    <h2 class="text-center"><span class="block font-bold text-2xl text-white" id="pointsDOM"></span> Points</h2>
+                </div>
             </div>
         </header>
         <main class="p-4">
             <h3>PlantLog</h3>
-            <div id="plantLogDivDOM"></div>
+            <div id="plantLogDivDOM" class="h-screen"></div>
         </main>
     </div>
     <script src="https://cdn.tailwindcss.com"></script>
