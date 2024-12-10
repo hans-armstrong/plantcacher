@@ -6,33 +6,26 @@ export let plantList = [];
 export let plantLog = [];
 
 async function checkUserInLocalStorage() {
-  user = JSON.parse(localStorage.getItem('user'));
-  let userIP = await getUserIpAddress();
-  // console.log(`?ip=${userIP}`);
-  if (user === null || user === undefined || user === '') {
-    try {
-      const response = await readUser(`ip=${userIP}`);
-      if (response) {
-        user = response;
-        localStorage.setItem("user", JSON.stringify(user));
-        console.log(JSON.parse(localStorage.getItem('user')), "user from database");
-      } else {
-        let userObject = {
-          user_id: generateRandomId(),
-          ip: userIP,
-          first_name: "",
-          last_name: "",
-          points: "0",
-        };
-        localStorage.setItem("user", JSON.stringify(userObject));
-        await sendUserToApi(userObject);
-        user = userObject;
-      }
-    } catch (error) {
-      console.error("There was a problem with the user fetch operation:", error);
+  const storedUser = localStorage.getItem('user')
+
+  if (storedUser === null) {
+    let userDefault =  {
+      user_id: generateRandomId(),
+      ip: await getUserIpAddress(),
+      first_name: "",
+      last_name: "",
+      points: "0",
     }
+    localStorage.setItem("user", JSON.stringify(userDefault));
+    return userDefault
+    }
+    try {
+      return JSON.parse(storedUser);
+  } catch (error) {
+      console.error('Invalid user data in localStorage:', error);
+      localStorage.removeItem('user'); // Clear invalid data
+      return checkUserInLocalStorage(); // Retry with clean state
   }
-  return user;
 }
 
 async function getUserIpAddress() {
@@ -138,14 +131,7 @@ async function readPlantLog() {
 let pointsDOM = document.getElementById('pointsDOM');
 
 export default async function initialize() {
-  // user = await checkUserInLocalStorage();
-  user =  {
-    user_id: generateRandomId(),
-    ip: await getUserIpAddress(),
-    first_name: "",
-    last_name: "",
-    points: "0",
-  }
+  user = await checkUserInLocalStorage();
   if (user) {
     user = await userPOST(user)
     pointsDOM.innerText = user.points;
@@ -183,7 +169,7 @@ export let userPOST = async (user) => {
           }
           
           const getData = await getResponse.json();
-          localStorage.setItem('user', getData[0])
+          localStorage.setItem('user', JSON.stringify(getData[0]))
           return getData[0];
           
       } catch (getError) {
@@ -205,7 +191,7 @@ export let userPOST = async (user) => {
               }
               
               const postData = await postResponse.json();
-              console.log("User sent to API:", postData);
+              console.log("User sent to API:", postData[0]);
               return postData;
               
           } catch (postError) {
