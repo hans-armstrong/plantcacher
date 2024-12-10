@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const formDiv = document.getElementById("formDiv")
     let plantListDivDOM = document.getElementById('plantListDivDOM');
 
-    console.log(plantList);
+    // console.log(plantList);
     plantList.forEach(plant => {
         console.log(plant)
         const plantDiv = document.createElement('div');

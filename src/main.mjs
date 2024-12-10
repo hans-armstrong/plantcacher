@@ -7,13 +7,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(user, 'user');
     
     // console.log("plantList", plantList);
-    const formDiv = document.getElementById("formDiv")
+    const formDiv = document.getElementById("formDiv");
     const gallery = document.getElementById("plantsDOM");
+    const detailsDiv = document.getElementById("detailsDiv");
 
-    const itemsPerPage = 5;
+    const itemsPerPage = 1;
     let currentPage = 1;
 
-    const nodePool = Array.from({ length: 5 }, (_, i) => {
+    const nodePool = Array.from({ length: 1 }, (_, i) => {
         const div = document.createElement('div');
         div.classList = 'plant-parent-div carousel-item'; // Add flex-shrink-0 to prevent shrinking
 
@@ -80,9 +81,40 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const item = plantsToShow[i];
                 div.querySelector('.plant-title').textContent = item.common_name;
                 div.querySelector('img').src = item.thumbnail_image_url;
-                div.querySelector('.detail-button').onclick = () => {
-                    console.log("Navigating to plant details page");
-                    window.location.href = `plantdetails.html?plantId=${item.plant_id}`;
+                div.querySelector('.detail-button').onclick = async () => {
+                    try {
+                        const response = await fetch(`https://plant-web-service.onrender.com/api/plant_images?plant_id=${item.plant_id}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return response.json();
+                        })
+                        .then(plantImages => {
+                            console.log('Plant images:', plantImages);
+                            return plantImages;
+                        })
+                        .then(plantImages => {
+                            if (plantImages) {
+                                plantImages.forEach(image => {
+                                    const imageDiv = document.createElement('div');
+                                    imageDiv.innerHTML = `
+                                        <img src="${image.image_url}" alt="${image.type}">
+                                        <p>Type: ${image.type}</p>
+                                        <p>Copyright: ${image.copyright}</p>
+                                    `;
+                                    detailsDiv.appendChild(imageDiv);
+                                });
+                            }
+                        })
+                    } catch (error) {
+                        console.error("There was a problem with the fetch operation:", error);
+                    };
                 };
                 div.querySelector('.add-button').onclick = async () => {
                     console.log(JSON.stringify(item.plant_id), user.user_id)
