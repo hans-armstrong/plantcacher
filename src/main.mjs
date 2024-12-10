@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const plantDetails = document.createElement('div')
         plantDetails.classList = 'plantDetails'
-
+        
         const usaImage = document.createElement('img')
         usaImage.src = 'images/usa.svg'
 
@@ -110,6 +110,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const fetchAndDisplayPlantDetails = async (item, plantDetailsDiv) => {
+        
+        // const usaImage = document.createElement('img')
+        // usaImage.src = 'images/usa.svg'
+
+        // plantDetailsDiv.appendChild(usaImage)
+
         const continentalUnitedStates = [
             "Alabama", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
             "Delaware", "Florida", "Georgia", "Idaho", "Illinois", "Indiana", "Iowa", 
@@ -361,6 +367,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 currentPage--;
                 renderPage(currentPage);
             }
+            let resetMapDiv = document.querySelector('.plantDetails')
+            resetMapDiv.innerHTML = ''
+            const usaImage = document.createElement('img')
+            usaImage.src = 'images/usa.svg'
+
+            resetMapDiv.appendChild(usaImage)
         };
         pagination.appendChild(prevButton);
 
@@ -372,6 +384,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 currentPage++;
                 renderPage(currentPage);
             }
+            let resetMapDiv = document.querySelector('.plantDetails')
+            resetMapDiv.innerHTML = ''
+            const usaImage = document.createElement('img')
+            usaImage.src = 'images/usa.svg'
+
+            resetMapDiv.appendChild(usaImage)
         };
         pagination.appendChild(nextButton);
     };
