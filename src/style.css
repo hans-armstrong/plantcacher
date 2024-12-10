@@ -20,11 +20,20 @@ font-style: normal;
     border-radius: 0 5px 0 0;
 }
 
+.plant-content {
+    color: rgba(255, 255, 255, 0.808);
+    width: 100%;
+    padding: 1rem;
+    background-color: #63e6bf1c;
+}
+
 .plant-figure {
     max-width: 50%;
 }
 
-
+.plant-title {
+    font-size: 2rem;
+}
 /* Main Page Plant Modal */
 #modalDiv {
     background-color: rgba(9, 25, 29, 0.904);

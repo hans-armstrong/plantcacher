@@ -32,10 +32,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         img.loading = 'lazy';
 
         const divBody = document.createElement('div');
-        divBody.classList = 'plant-content';
+        divBody.classList = 'plant-content flex flex-col';
 
         const h2 = document.createElement('h2');
         h2.classList = 'plant-title';
+
+        const scientificSpan = document.createElement('span')
+        scientificSpan.classList ='scientificSpan'
+
+        const plantDetails = document.createElement('div')
+        plantDetails.classList = 'plantDetails'
 
         const pointDiv = document.createElement('div')
         const pointsH3 = document.createElement('h3')
@@ -48,25 +54,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         plusImages.setAttribute('id', 'plusImages')
 
         const divCardActions = document.createElement('div');
-        divCardActions.classList = 'plant-buttons';
+        divCardActions.classList = 'plant-buttons mt-auto w-full';
 
-        const button = document.createElement('button');
-        button.classList = 'btn btn-primary detail-button';
-        button.textContent = 'Details';
+        // const button = document.createElement('button');
+        // button.classList = 'btn detail-button';
+        // button.textContent = 'Details';
 
         const addButton = document.createElement('button');
-        addButton.textContent = "+ List";
-        addButton.classList = 'btn btn-primary add-button';
+        addButton.innerHTML = "List &#127793;";
+        addButton.classList = 'btn add-button';
 
         // const logButton = document.createElement('button')
         // logButton.textContent = "Found"
         // logButton.className = 'btn btn-primary log-button'
 
         figure.appendChild(img)
-        divCardActions.appendChild(button);
+        // divCardActions.appendChild(button);
         divCardActions.appendChild(addButton);
         // divCardActions.appendChild(logButton)
         divBody.appendChild(h2);
+        divBody.appendChild(scientificSpan)
+        divBody.appendChild(plantDetails)
         pointDiv.appendChild(pointsH3)
         divBody.appendChild(divCardActions);
         div.appendChild(pointDiv)
@@ -116,6 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const item = plantsToShow[i];
                 div.querySelector('#pointsH3').textContent = item.points
                 div.querySelector('.plant-title').textContent = item.common_name;
+                div.querySelector('.scientificSpan').textContent = item.scientific_name
                 div.querySelector('img').src = item.thumbnail_image_url;
                 div.querySelector('#plusImages').onclick = async () => {
                     try {
@@ -160,9 +169,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                     };
 
                 }
-                div.querySelector('.detail-button').onclick = async () => {
+                div.querySelector('.plantDetails').addEventListener('DOMContentLoaded', async () => {
+                    const plantDetailsDiv = document.querySelector('.plantDetails')
+                    const continentalUnitedStates = [
+                        "Alabama", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
+                        "Delaware", "Florida", "Georgia", "Idaho", "Illinois", "Indiana", "Iowa", 
+                        "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
+                        "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", 
+                        "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", 
+                        "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", 
+                        "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
+                        "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", 
+                        "West Virginia", "Wisconsin", "Wyoming"
+                      ];
                     try {
-                        const response = await fetch(`https://plant-web-service.onrender.com/api/plant_images?plant_id=${item.plant_id}`, {
+                        const response = await fetch(`https://plant-web-service.onrender.com/api/plant_locales?plant_id=${item.plant_id}`, {
                             method: "GET",
                             headers: {
                                 "Content-Type": "application/json"
@@ -174,27 +195,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 }
                                 return response.json();
                             })
-                            .then(plantImages => {
-                                console.log('Plant images:', plantImages);
-                                return plantImages;
-                            })
-                            .then(plantImages => {
-                                if (plantImages) {
-                                    plantImages.forEach(image => {
-                                        const imageDiv = document.createElement('div');
-                                        imageDiv.innerHTML = `
-                                        <img src="${image.image_url}" alt="${image.type}">
-                                        <p>Type: ${image.type}</p>
-                                        <p>Copyright: ${image.copyright}</p>
-                                    `;
-                                        modalDiv.appendChild(imageDiv);
-                                    });
-                                }
+                            .then(data => {
+                                // if (data) {
+                                //     plantImages.forEach(image => {
+                                //         const imageDiv = document.createElement('div');
+                                //         imageDiv.innerHTML = `
+                                //         <img src="${image.image_url}" alt="${image.type}">
+                                //         <p>Type: ${image.type}</p>
+                                //         <p>Copyright: ${image.copyright}</p>
+                                //     `;
+                                //         modalDiv.appendChild(imageDiv);
+                                //     });
+                                // }
                             })
                     } catch (error) {
                         console.error("There was a problem with the fetch operation:", error);
                     };
-                };
+                })
                 div.querySelector('.add-button').onclick = async () => {
                     console.log(JSON.stringify(item.plant_id), user.user_id)
                     try {
