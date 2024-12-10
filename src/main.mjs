@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // console.log("plantList", plantList);
     const formDiv = document.getElementById("formDiv");
-    const formDiv = document.getElementById("formDiv");
     const gallery = document.getElementById("plantsDOM");
     const modalDiv = document.getElementById("modalDiv");
 
@@ -20,10 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     modalDiv.addEventListener('click', toggleModalVisibility);
 
     const itemsPerPage = 1;
-    const itemsPerPage = 1;
     let currentPage = 1;
 
-    const nodePool = Array.from({ length: 1 }, (_, i) => {
     const nodePool = Array.from({ length: 1 }, (_, i) => {
         const div = document.createElement('div');
         div.classList = 'plant-parent-div carousel-item relative flex w-full'; // Add flex-shrink-0 to prevent shrinking
@@ -33,7 +30,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const img = document.createElement('img');
         img.classList = 'plant-img w-full'; // Add object-cover to maintain aspect ratio
         img.loading = 'lazy';
-
 
         const divBody = document.createElement('div');
         divBody.classList = 'plant-content';
@@ -51,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         plusImages.innerHTML = `<i class="text-2xl fa-solid fa-up-right-and-down-left-from-center" style="color: #63E6BE;"></i>`
         plusImages.setAttribute('id', 'plusImages')
 
-
         const divCardActions = document.createElement('div');
         divCardActions.classList = 'plant-buttons';
 
@@ -66,7 +61,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         // const logButton = document.createElement('button')
         // logButton.textContent = "Found"
         // logButton.className = 'btn btn-primary log-button'
-
 
         figure.appendChild(img)
         divCardActions.appendChild(button);
@@ -100,8 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
             </div>
         */
-        });
-
+    });
 
     const renderPage = (page) => {
         // const cachedPage = localStorage.getItem(`plantsPage_${page}`);
