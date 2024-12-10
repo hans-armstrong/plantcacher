@@ -34,6 +34,18 @@ font-style: normal;
 .plant-title {
     font-size: 2rem;
 }
+
+.plantDetails {
+   width: 600px;
+   position: relative;
+}
+
+.plantDetails img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
 /* Main Page Plant Modal */
 #modalDiv {
     background-color: rgba(9, 25, 29, 0.904);
