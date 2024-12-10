@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.typekit.net/uwv0nmr.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
-
+    <script src="https://kit.fontawesome.com/4b15013d2b.js" crossorigin="anonymous"></script>
     <title>PlantCacher</title>
-  <script type="module" crossorigin src="/plantcacher/assets/main-DMdECdQb.js"></script>
+  <script type="module" crossorigin src="/plantcacher/assets/main-BNLoI1up.js"></script>
   <link rel="modulepreload" crossorigin href="/plantcacher/assets/state-CZPM44ZT.js">
   <link rel="stylesheet" crossorigin href="/plantcacher/assets/state-D8kRcF1m.css">
-  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-CiIlSo38.css">
+  <link rel="stylesheet" crossorigin href="/plantcacher/assets/main-CF-Lyj_c.css">
 </head>
 
 <body>
-    <div class="flex wrap">
+    <div class="flex wrap relative">
         <header class="w-[350px] max-w-[350px] p-4 bg-gray-900 h-screen flex flex-col">
             <h1 class="text-5xl mb-2 font-bold">PlantCacher</h1>
             <ul class="menu bg-base-200 w-80 p-4">
@@ -44,15 +44,15 @@
                 </div>
             </div>
         </header>
-        <main class="p-4 ">
-            <div class="listWrapper h-screen">
+        <div id="modalDiv" class="hidden absolute z-[1000]"></div>
+        <main class="p-4">
+            <div class="listWrapper h-screen w-[2000px] flex flex-col">
                 <!-- <img src="images/hero.jpg" alt="Small green leaves on a tree hero image." class="h-64" /> -->
                 <!-- Parent container -->
-                <div id="plantsDOM" class="">
+                <div id="plantsDOM" class="carousel carousel-center bg-neutral rounded-box max-w-screen-xl	 space-x-4 p-4 ">
                 </div>
                 <div id="pagination" class="join"></div>
             </div>
-            <div id="formDiv"></div>
         </main>
         <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     </div>

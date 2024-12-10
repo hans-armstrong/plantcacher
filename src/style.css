@@ -7,3 +7,51 @@ body {
 font-weight: 200;
 font-style: normal;
 }
+
+
+/* Main page plant */
+
+.pointsDiv {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: .7rem;
+    font-weight: 600;
+    border-radius: 0 5px 0 0;
+}
+
+.plant-figure {
+    max-width: 50%;
+}
+
+
+/* Main Page Plant Modal */
+#modalDiv {
+    background-color: rgba(9, 25, 29, 0.904);
+}
+
+.modal-image-div {
+    position: relative;
+    margin: 1rem 0 2rem 0;
+}
+
+.modal-image-figure {
+    position: relative;
+    max-width: 800px;
+}
+
+.modal-image-figure img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    height: auto;
+}
+
+
+.modal-image-figcaption {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    background-color: black;
+    padding: 1rem;
+    border-radius: 0 0 10px 10px;
+}
