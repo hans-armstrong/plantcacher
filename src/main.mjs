@@ -6,6 +6,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     let { user, plants, plantList } = await initialize();
     console.log(user, 'user');
 
+    //Trefle.io may be down, token not working
+    // const fetchJWTUserToken = async (user) => {
+    //     try {
+    //         const response = fetch(`http://localhost:10000/api/auth?ip=${user.ip}`, {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json"
+    //             }
+    //         });
+
+    //         const data = await response.json();
+    //         return data
+
+    //         if (!response.ok) {
+    //             throw new Error("Network response was not ok");
+    //         }
+
+
+    //     } catch (error) {
+    //                     console.error("There was a problem with the token get", error);
+    //     }
+    // }
+
+    // let userToken = await fetchJWTUserToken(user)
+    // console.log(userToken)
+
+
     // console.log("plantList", plantList);
     const formDiv = document.getElementById("formDiv");
     const gallery = document.getElementById("plantsDOM");

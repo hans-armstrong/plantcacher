@@ -149,9 +149,9 @@ export default async function initialize() {
   return { user, plants, plantList, plantLog, pointsDOM };
 }
 
-initialize().then(({ user, plants, plantList, plantLog, pointsDOM }) => {
-  // Further actions after initialization if needed
-});
+// initialize().then(({ user, plants, plantList, plantLog, pointsDOM }) => {
+//   // Further actions after initialization if needed
+// });
 
 export let userPOST = async (user) => {
   try {

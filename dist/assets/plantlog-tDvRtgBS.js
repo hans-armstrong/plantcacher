@@ -1,4 +1,4 @@
-import{i as m,g as u}from"./state-C4x1ay48.js";document.addEventListener("DOMContentLoaded",async()=>{let l=document.getElementById("plantLogDivDOM"),{user:d,plantLog:r}=await m();await(async()=>{console.log(r),r.forEach(e=>{const i=document.createElement("div");i.setAttribute("data-plant-id",e.plant_id),i.classList="flex relative my-6 mx-4 mb-8",i.innerHTML=`
+import{i as m,g as u}from"./state-B-qg3Shi.js";document.addEventListener("DOMContentLoaded",async()=>{let l=document.getElementById("plantLogDivDOM"),{user:d,plantLog:r}=await m();await(async()=>{console.log(r),r.forEach(e=>{const i=document.createElement("div");i.setAttribute("data-plant-id",e.plant_id),i.classList="flex relative my-6 mx-4 mb-8",i.innerHTML=`
         <h3 class="absolute -left-4 -top-4 p-2 px-4 bg-sky-950 text-white text-lg rounded-lg">${e.common_name}</h3>
         <figure><img src=${e.thumbnail_image_url} class="max-w-60">
         <figcaption class="absolute bottom-0 p-2 bg-blue-950/75 italic ">${e.scientific_name}</figcaption></figure>
