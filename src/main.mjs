@@ -6,35 +6,89 @@ document.addEventListener("DOMContentLoaded", async () => {
     let { user, plants, plantList } = await initialize();
     console.log(user, 'user');
 
-    //Trefle.io may be down, token not working
-    // const fetchJWTUserToken = async (user) => {
-    //     try {
-    //         const response = fetch(`http://localhost:10000/api/auth?ip=${user.ip}`, {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             }
-    //         });
-
-    //         const data = await response.json();
-    //         return data
-
-    //         if (!response.ok) {
-    //             throw new Error("Network response was not ok");
-    //         }
 
 
-    //     } catch (error) {
-    //                     console.error("There was a problem with the token get", error);
-    //     }
-    // }
+    //SEARCH SECTION 
 
-    // let userToken = await fetchJWTUserToken(user)
+    // Trefle.io jwt token for the user
+    const fetchJWTUserToken = async (user) => {
+        try {
+            // Add await here - fetch returns a Promise
+            const response = await fetch(`https://plant-web-service.onrender.com/api/auth?ip=${user.ip}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+    
+            // Check response status before parsing JSON
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+    
+            // Parse JSON after checking response
+            const data = await response.json();
+            return data.token;
+    
+        } catch (error) {
+            console.error("There was a problem with the token get:", error);
+            return null; // or handle error appropriately
+        }
+    }
+
+
+    let userToken = await fetchJWTUserToken(user)
     // console.log(userToken)
+//{
+//     "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3MTM2LCJvcmlnaW4iOiJodHRwczovL2hhbm5haC1hLmdpdGh1Yi5pby9wbGFudGNhY2hlci8iLCJpcCI6IjM4Ljc4LjIwMC4xMDgiLCJleHBpcmUiOiIyMDI0LTEyLTExIDIwOjM0OjUwICswMDAwIiwiZXhwIjoxNzMzOTQ5MjkwfQ.0mQ4hsRADg5ZpqUqZd380ZIAFWCOhqkvcc1NRB5h4p8",
+//     "expiration": "12-11-2024 20:34"
+// }
+
+
+    const searchResultsDiv = document.querySelector('#searchResults')
+    const searchInput = document.querySelector('#searchInputDOM')
+    const searchButton = document.querySelector('#searchButton')
+
+    const sanitizeInput = (input) => {
+        if (!input) return '';
+    
+        return input
+            .trim() 
+            .toLowerCase() 
+            .replace(/[^\w\s-]/g, '') 
+            .replace(/\s+/g, ' ') 
+            .substring(0, 100);
+    };    
+
+    searchButton.onclick = async () => {
+        let query = sanitizeInput(searchInput.value) 
+        try {
+            const response = fetch(`https://trefle.io/api/v1/plants/search?token=${userToken}&q=${query}`)
+
+            let data = await response.json()
+            console.log(data)
+
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+    // MAIN PLANTS SECTION
+
+
 
 
     // console.log("plantList", plantList);
-    const formDiv = document.getElementById("formDiv");
+    // const formDiv = document.getElementById("formDiv");
     const gallery = document.getElementById("plantsDOM");
     const modalDiv = document.getElementById("modalDiv");
 
