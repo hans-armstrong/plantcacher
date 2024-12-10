@@ -11,6 +11,9 @@ font-style: normal;
 
 /* Main page plant */
 
+.plant-parent-div {
+    min-height: 400px;
+}
 .pointsDiv {
     position: absolute;
     left: 0;
@@ -36,7 +39,7 @@ font-style: normal;
 }
 
 .plantDetails {
-   width: 600px;
+   width: 400px;
    position: relative;
 }
 
