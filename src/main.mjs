@@ -67,6 +67,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 mode: 'no-cors' // Add this line
             });
 
+
+            //Getting 500 server error, may need proxy server to send from github pages
+            // const response = await fetch(`https://trefle.io/api/v1/plants/search?token=${userToken}&q=${query}`, {
+            //     mode: 'no-cors' // Add this line
+            // });
+
             let data = await response.json()
             console.log(data)
 
