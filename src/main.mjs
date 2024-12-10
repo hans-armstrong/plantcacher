@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // console.log("plantList", plantList);
     const formDiv = document.getElementById("formDiv");
+    const formDiv = document.getElementById("formDiv");
     const gallery = document.getElementById("plantsDOM");
     const modalDiv = document.getElementById("modalDiv");
 
@@ -19,8 +20,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     modalDiv.addEventListener('click', toggleModalVisibility);
 
     const itemsPerPage = 1;
+    const itemsPerPage = 1;
     let currentPage = 1;
 
+    const nodePool = Array.from({ length: 1 }, (_, i) => {
     const nodePool = Array.from({ length: 1 }, (_, i) => {
         const div = document.createElement('div');
         div.classList = 'plant-parent-div carousel-item relative flex w-full'; // Add flex-shrink-0 to prevent shrinking
